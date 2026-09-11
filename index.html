@@ -158,7 +158,7 @@ function doSearch() {
       <button id="confirmBtn" style="margin-top:14px; padding:8px 16px; font-size:0.95rem; background:#2f80ed; color:#fff; border:none; border-radius:4px; cursor:pointer;">Search for Confirmation</button>
     `;
     document.getElementById('confirmBtn').addEventListener('click', () => {
-      const query = `${b.title} ${b.author} recommended reading age ${b.age_rating} story themes`;
+      const query = `"${b.title}" "${b.author}" recommended reading age ${b.age_rating} story themes`;
       window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}`, '_blank');
     });
   } else {
