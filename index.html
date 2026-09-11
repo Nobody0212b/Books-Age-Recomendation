@@ -32,10 +32,23 @@ fetch('books.json')
 const input = document.getElementById('code');
 const result = document.getElementById('result');
 
+function lookup(code) {
+  if (index[code]) return index[code];
+  // strip a leading ~ (scanner prefix character)
+  if (code.startsWith('~')) {
+    const stripped = code.slice(1);
+    if (index[stripped]) return index[stripped];
+    if (stripped.startsWith('0') && index[stripped.slice(1)]) return index[stripped.slice(1)];
+  }
+  // strip a single leading 0 as fallback
+  if (code.startsWith('0') && index[code.slice(1)]) return index[code.slice(1)];
+  return null;
+}
+
 input.addEventListener('input', () => {
   const code = input.value.trim();
   if (!code) { result.innerHTML = 'Type a barcode above.'; return; }
-  const b = index[code];
+  const b = lookup(code);
   if (b) {
     result.innerHTML = `
       <div><span class="label">Title:</span> ${b.title}</div>
