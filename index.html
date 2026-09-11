@@ -159,7 +159,7 @@ function doSearch() {
     `;
     document.getElementById('confirmBtn').addEventListener('click', () => {
       const query = `"${b.title}" "${b.author}" recommended reading age ${b.age_rating} story themes`;
-      window.open(`https://www.perplexity.ai/search?q=${encodeURIComponent(query)}`, '_blank');
+      window.open(`https://www.phind.com/search?q=${encodeURIComponent(query)}`, '_blank');
     });
   } else {
     result.innerHTML = '<span class="not-found">No book found with that barcode.</span>';
