@@ -45,6 +45,12 @@ newScanBtn.addEventListener('click', () => {
   input.focus();
 });
 
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    newScanBtn.click();
+  }
+});
+
 function ageColorClass(ageStr) {
   const nums = (ageStr.match(/\d+/g) || []).map(Number);
   if (!nums.length) return '';
