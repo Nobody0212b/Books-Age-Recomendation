@@ -159,7 +159,7 @@ function doSearch() {
     `;
     document.getElementById('confirmBtn').addEventListener('click', () => {
       const query = `What is the recommended reading age and story themes for "${b.title}" by "${b.author}"? Is a rating of ${b.age_rating} accurate?`;
-      window.open(`https://search.brave.com/search?q=${encodeURIComponent(query)}`, '_blank');
+      window.open(`https://search.brave.com/search?q=${encodeURIComponent(query)}&summary=1`, '_blank');
     });
   } else {
     result.innerHTML = '<span class="not-found">No book found with that barcode.</span>';
