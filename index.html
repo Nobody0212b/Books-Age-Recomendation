@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Books Age Recomendation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 500px; margin: 40px auto; padding: 0 16px; }
+  h1 { font-size: 1.3rem; }
+  input { font-size: 1.1rem; padding: 8px; width: 100%; box-sizing: border-box; }
+  #result { margin-top: 20px; padding: 12px; border: 1px solid #ccc; border-radius: 6px; min-height: 60px; }
+  .label { font-weight: bold; }
+  .not-found { color: #900; }
+</style>
+</head>
+<body>
+<h1>Books Age Recomendation</h1>
+<input id="code" type="text" placeholder="Enter barcode..." autofocus>
+<div id="result">Type a barcode above.</div>
+
+<script>
+let books = [];
+let index = {};
+
+fetch('books.json')
+  .then(r => r.json())
+  .then(data => {
+    books = data;
+    for (const b of books) index[b.barcode.trim()] = b;
+  });
+
+const input = document.getElementById('code');
+const result = document.getElementById('result');
+
+input.addEventListener('input', () => {
+  const code = input.value.trim();
+  if (!code) { result.innerHTML = 'Type a barcode above.'; return; }
+  const b = index[code];
+  if (b) {
+    result.innerHTML = `
+      <div><span class="label">Title:</span> ${b.title}</div>
+      <div><span class="label">Author:</span> ${b.author}</div>
+      <div><span class="label">Age rating:</span> ${b.age_rating}</div>
+    `;
+  } else {
+    result.innerHTML = '<span class="not-found">No book found with that barcode.</span>';
+  }
+});
+</script>
+</body>
+</html>
