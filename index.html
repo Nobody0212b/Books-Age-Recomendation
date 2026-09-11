@@ -158,7 +158,7 @@ function doSearch() {
       <button id="confirmBtn" style="margin-top:14px; padding:8px 16px; font-size:0.95rem; background:#2f80ed; color:#fff; border:none; border-radius:4px; cursor:pointer;">Search for Confirmation</button>
     `;
     document.getElementById('confirmBtn').addEventListener('click', () => {
-      const query = `What is the recommended reading age and story themes for "${b.title}" by "${b.author}"? Is a rating of ${b.age_rating} accurate??`;
+      const query = `What is the recommended reading age and story themes for "${b.title}" by "${b.author}"? Is a rating of ${b.age_rating} accurate? Short answer??`;
       window.open(`https://search.brave.com/ask?q=${encodeURIComponent(query)}`, '_blank');
     });
   } else {
