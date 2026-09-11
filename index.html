@@ -11,6 +11,11 @@
   #result { margin-top: 20px; padding: 12px; border: 1px solid #ccc; border-radius: 6px; min-height: 60px; }
   .label { font-weight: bold; }
   .not-found { color: #900; }
+  .age { font-weight: bold; }
+  .age-red { color: #c0392b; }
+  .age-orange { color: #e67e22; }
+  .age-yellow { color: #b8960a; }
+  .age-green { color: #27ae60; }
 </style>
 </head>
 <body>
@@ -32,6 +37,17 @@ fetch('books.json')
 const input = document.getElementById('code');
 const result = document.getElementById('result');
 
+function ageColorClass(ageStr) {
+  const nums = (ageStr.match(/\d+/g) || []).map(Number);
+  if (!nums.length) return '';
+  const n = Math.max(...nums);
+  if (n >= 18) return 'age-red';
+  if (n >= 16) return 'age-orange';
+  if (n >= 13) return 'age-yellow';
+  if (n >= 10) return 'age-green';
+  return '';
+}
+
 function lookup(code) {
   if (index[code]) return index[code];
   // strip a leading ~ (scanner prefix character)
@@ -50,10 +66,11 @@ input.addEventListener('input', () => {
   if (!code) { result.innerHTML = 'Type a barcode above.'; return; }
   const b = lookup(code);
   if (b) {
+    const cls = ageColorClass(b.age_rating);
     result.innerHTML = `
       <div><span class="label">Title:</span> ${b.title}</div>
       <div><span class="label">Author:</span> ${b.author}</div>
-      <div><span class="label">Age rating:</span> ${b.age_rating}</div>
+      <div><span class="label">Age rating:</span> <span class="age ${cls}">${b.age_rating}</span></div>
     `;
   } else {
     result.innerHTML = '<span class="not-found">No book found with that barcode.</span>';
