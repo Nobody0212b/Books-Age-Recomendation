@@ -136,12 +136,17 @@ function ageColorClass(ageStr) {
 
 function lookup(code) {
   if (index[code]) return index[code];
-  if (code.startsWith('~')) {
-    const stripped = code.slice(1);
-    if (index[stripped]) return index[stripped];
-    if (stripped.startsWith('0') && index[stripped.slice(1)]) return index[stripped.slice(1)];
+  // strip a leading ~ (scanner prefix character), then try progressive zero-stripping
+  let c = code;
+  if (c.startsWith('~')) {
+    c = c.slice(1);
+    if (index[c]) return index[c];
   }
-  if (code.startsWith('0') && index[code.slice(1)]) return index[code.slice(1)];
+  // progressively strip leading zeros one at a time, stopping at first match
+  while (c.startsWith('0') && c.length > 1) {
+    c = c.slice(1);
+    if (index[c]) return index[c];
+  }
   return null;
 }
 
