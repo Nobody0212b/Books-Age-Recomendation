@@ -173,6 +173,14 @@ function doSearch() {
 
 input.addEventListener('input', doSearch);
 searchBtn.addEventListener('click', doSearch);
+
+input.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    doSearch();
+    const btn = document.getElementById('confirmBtn');
+    if (btn) btn.click();
+  }
+});
 </script>
 </body>
 </html>
